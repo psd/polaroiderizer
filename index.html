@@ -30,19 +30,21 @@
 </head>
 <body>
 	<h1 id='title'>polaroiderizer</h1>
-	<form action='http://flickr.com/photos/tags' method='get'>
+	<form action='http://flickr.com/photos/tags' method='get' id="form">
 		<input type="text" name="q" value="osmosoft" id="tag">
 		<input type="submit" name="submit" value="hit me with some flickr tag joy" id="submit">
 	</form>
 	<div id='display'>
 		<div id='status'>&nbsp;</div>
 	</div>
+	<div id='controls'>
 	<ul id='options'>
 		<li><a href='#' class='selected'>polaroids</a></li>
 		<li><a href='#'>faders</a></li>
 		<li><a href='#'>plain</a></li>
 	</ul>
 	<span><a href='#' title='toggle fullscreen' class='toggleFullscreen'>f</a> to toggle fullscreen mode</span>
+	</div>
 	<div id='staging'></div>
 	<div id='footer'>
 		<p>Polaroiderizer is but a toy, but it has been made using <a href="http://en.wikipedia.org/wiki/Unobtrusive_JavaScript" title='wikipedia - Unobtrusive JavaScript'>unobtrusive techniques</a> with love by <a href="http://hawksworx.com" title='hawksworx.com'>Phil Hawksworth</a>. <a href="http://www.hawksworx.com/journal/2009/02/15/mashing-up-flickr-in-the-client-with-jquery/" title="Hawksworx  &raquo; Blog Archive   &raquo; Mashing up flickr in the client with jQuery">Find out why.</a></p> 

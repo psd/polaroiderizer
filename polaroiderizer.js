@@ -184,7 +184,7 @@ $(document).ready(function() {
 
 function toggleFullscreen (argument) {
 	var display = $('#display');
-	$('h1, form, ul, #footer, span').toggle();
+	$('#title, #form, #controls, #footer').toggle();
 	$('body').toggleClass('kiosk');
 	display.toggleClass('kiosk');
 	if(display.hasClass('kiosk')) {
