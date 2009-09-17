@@ -9,7 +9,7 @@
  *
  */
 
-// choose the transition effect
+// choose a transition effect
 $.fn.transition = function() {
 	var effect = $('#options a.selected').text();
 	if(effect == 'polaroids'){
@@ -21,7 +21,6 @@ $.fn.transition = function() {
 	}	
 	return this;
 };
-
 
 $.fn.polaroidScroll = function() {
 	

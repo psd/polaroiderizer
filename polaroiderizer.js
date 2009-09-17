@@ -16,21 +16,23 @@ $.fn.polaroiderizer = function(options) {
 
 	// handle the form submission.
 	$('#form').submit(function(){
-		var query = $('#search').val();
-
-		getPhotos(query, displayQueue);
+		var query = $('#query').val();
 
 		// set the fragment identifier
 		window.location.hash = '#' + query;
+
+		// kick off display queue
+		displayQueue.start();
+		
+		// kick off feed queue
+		feedQueue.start({queue: displayQueue, query: query});
+
 		return false;
 	});
 
-	// kick off queue
-	displayQueue.next();
-	
 	// get the fragment identifier
 	if(window.location.hash) {
-		$('#search').val(window.location.hash.split('#')[1]);
+		$('#query').val(window.location.hash.split('#')[1]);
 		$('form').submit();
 	}
 
@@ -39,7 +41,7 @@ $.fn.polaroiderizer = function(options) {
 		toggleFullscreen();
 	});
 	$().keypress(function(e){
-		if(!$(e.target).is('#search')) {
+		if(!$(e.target).is('#query')) {
 			if(e.which == 102) {
 				toggleFullscreen();
 			}

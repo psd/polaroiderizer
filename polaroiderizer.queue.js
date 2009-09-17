@@ -14,13 +14,13 @@ var displayQueue = {
 	qPos: 0,
 	items: [],
 	timer: null,
-	interval: 3000
+	interval: 2000,
+	options: {}
 };
 
 displayQueue.clear = function() {
 	this.qPos = 0;
-	this.displayQueue = [];
-	$('#staging').empty();
+	this.items = [];
 }
 
 displayQueue.add = function(item) {
@@ -28,6 +28,7 @@ displayQueue.add = function(item) {
 }
 
 displayQueue.show = function(item) {
+console.log("show",item);
 	// show item
 	$(item).transition();
 
@@ -37,8 +38,13 @@ displayQueue.show = function(item) {
 	$('#status').html(link);
 }
 
+displayQueue.start = function(options) {
+	this.options = options;
+	return this.next();
+}
+
 displayQueue.next = function() {
-console.log("next!");
+console.log("next");
 	if(this.items.length > 0) {
 		var item = displayQueue.items[this.qPos];
 		if(item) {
