@@ -10,15 +10,15 @@
  */
 
 // Get photos from the flickr API and add them to the display queue.
-function getPhotos(tag, queue) {
+function getPhotos(text, queue) {
 	var status = $('#status');
 	var staging = $('#staging');
 
-	status.html('checking flickr for photos tagged '+ tag + '...');
+	status.html('checking flickr for photo s'+ text + '...');
 	var nphotos = 10;
 	var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +
 		'&api_key=0a346a54dbca829015b11fcac9e70c6f' +
-		'&tags=' + tag +
+		'&text=' + text +
 		'&per_page=' + nphotos +
 		'&format=json' +
 	    '&jsoncallback=?';
