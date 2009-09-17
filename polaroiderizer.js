@@ -8,41 +8,58 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
  */
+;(function($) {
 
-var displayQueue = [];
-var qPos = 0;
-var timer = null;
+$.fn.polaroiderizer = function(options) {
+	var defaults = {};
+	var settings = $.extend(true, defaults, options);
 
-// choose the transition effect
-$.fn.transition = function() {
-	var effect = $('#options a.selected').text();
-	if(effect == 'polaroids'){
-		this.polaroidScroll();
-	} else if(effect == 'faders'){
-		this.faders();	
-	} else if(effect == 'plain'){
-		this.plain();	
-	}	
-	return this;
-};
+	// handle the form submission.
+	$('#form').submit(function(){
+		var query = $('#search').val();
 
-// Iterate throught the images which are downloaded and ready to display.
-function displayNext(){
-	var i = displayQueue[qPos];
-	if(i) {
-		$(i).transition();
-		var title = $(i).find('img').attr('title');
-		var link = $(i).clone().empty().text(title);					
-		$('#status').html(link);
-	} 
-	qPos++;
-	if(qPos >= displayQueue.length) {
-		qPos = 0;
+		getPhotos(query, displayQueue);
+
+		// set the fragment identifier
+		window.location.hash = '#' + query;
+		return false;
+	});
+
+	// kick off queue
+	displayQueue.next();
+	
+	// get the fragment identifier
+	if(window.location.hash) {
+		$('#search').val(window.location.hash.split('#')[1]);
+		$('form').submit();
 	}
-	timer = setTimeout(function() { displayNext(); }, 3000);				
+
+	// fullscreen UI selector
+	$('a.toggleFullscreen').click(function(){
+		toggleFullscreen();
+	});
+	$().keypress(function(e){
+		if(!$(e.target).is('#search')) {
+			if(e.which == 102) {
+				toggleFullscreen();
+			}
+		}
+	});
+
+	// transition UI selector
+	$('#options a').click(function(){
+		var target = $(this);
+		if(!target.hasClass('selected')) {
+			$('#options a').removeClass('selected');
+			target.addClass('selected');
+		}
+		target.blur();
+		return false;
+	});
 };
 
 
+// toggle fullscreen with the f key or a click.	
 function toggleFullscreen (argument) {
 	var display = $('#display');
 	$('#title, #form, #controls, #footer').toggle();
@@ -56,46 +73,4 @@ function toggleFullscreen (argument) {
 	}
 }
 
-$.fn.polaroiderizer = function(options) {
-
-	// handle the form submission.
-	$('form').submit(function(){
-		var tag = $('#tag').val();
-		$('#staging').empty();
-		displayQueue = [];
-		qPos = 0;
-		getPhotos(tag);
-		$('#status').html('checking flickr for photos tagged '+ tag + '...');
-		window.location.hash = '#' + tag;
-		return false;
-	});
-	
-	// set the tag in the form if we find a tag in the uri.
-	if(window.location.hash) {
-		$('#tag').val(window.location.hash.split('#')[1]);
-		$('form').submit();
-	}
-
-	// Animation option button handlers.
-	$('#options a').click(function(){
-		var target = $(this);
-		if(!target.hasClass('selected')) {
-			$('#options a').removeClass('selected');
-			target.addClass('selected');
-		}
-		target.blur();
-		return false;
-	});
-	
-	// toggle fullscreen with the f key or a click.	
-	$('a.toggleFullscreen').click(function(){
-		toggleFullscreen();
-	});
-	$().keypress(function(e){
-		if(!$(e.target).is('#tag')) {
-			if(e.which == 102) {
-				toggleFullscreen();
-			}
-		}
-	});
-};
+})(jQuery);

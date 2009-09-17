@@ -10,7 +10,11 @@
  */
 
 // Get photos from the flickr API and add them to the display queue.
-function getPhotos(tag) {
+function getPhotos(tag, queue) {
+	var status = $('#status');
+	var staging = $('#staging');
+
+	status.html('checking flickr for photos tagged '+ tag + '...');
 	var nphotos = 10;
 	var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +
 		'&api_key=0a346a54dbca829015b11fcac9e70c6f' +
@@ -20,19 +24,13 @@ function getPhotos(tag) {
 	    '&jsoncallback=?';
 	$.getJSON(uri, function(data){
 		$.each(data.photos.photo, function(i,pic){
-			$('#status').html('Hoorah! I founds some. Let\'s grab them and make a little slideshow...');
-			//clear it out and start again...
-			if (timer) {
-				clearTimeout(timer);
-				timer = null;
-			}
+			status.html('Hoorah! I founds some. Let\'s grab them and make a little slideshow...');
 			$('<img src="http://farm'+ pic.farm +'.static.flickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg" title="'+ pic.title +'">').
 				load(function(){
 					var a = $('<a href="http://flickr.com/photos/'+pic.owner+'/'+ pic.id +'" target="_BLANK"></a>').append($(this).clone());					
-					displayQueue.push(a);
+					queue.add(a);
 				}).
-				appendTo($('#staging'));
+				appendTo(staging);
 		});
-		displayNext();
 	});
 }

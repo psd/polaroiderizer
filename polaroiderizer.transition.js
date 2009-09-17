@@ -9,6 +9,20 @@
  *
  */
 
+// choose the transition effect
+$.fn.transition = function() {
+	var effect = $('#options a.selected').text();
+	if(effect == 'polaroids'){
+		this.polaroidScroll();
+	} else if(effect == 'faders'){
+		this.faders();	
+	} else if(effect == 'plain'){
+		this.plain();	
+	}	
+	return this;
+};
+
+
 $.fn.polaroidScroll = function() {
 	
 	$('#display div.plain').remove();

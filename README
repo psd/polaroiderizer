@@ -1,2 +1,6 @@
 Polaroiderizer is a little demo of using unobtrusive Javascript to make a simple slideshow.
 It uses jQuery to animated images grabbed from flickr.
+
+Forked by psd for bytenight:
+
+# split into modules, for extension
