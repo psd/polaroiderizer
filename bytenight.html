@@ -23,12 +23,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>polaroiderizer - a slideshow from flickr and twitter tags</title>
 	<meta name="author" content="Phil Hawksworth">
-	<meta name="description" content="A slideshow from a flickr and twitter search, built with jQuery for unobtrusive javascript and progressive enhancement.">
+	<meta name="description" content="A slideshow from a flickr, twitter and YouTube search, built with jQuery for unobtrusive javascript and progressive enhancement.">
 	<meta name="keywords" content="jQuery, Unobtrusive, Unobtrusify, example, twitter, flickr, api, mashup, Phil, Hawksworth, hawksworx" >
 	<link rel="stylesheet" href="styles.css" type="text/css" media="screen" title="basic styling" charset="utf-8">
 </head>
 <body>
-	<h1 id='title'>polaroiderizer</h1>
+	<h1 id='title'>Byte Night Display</h1>
 	<form action='http://flickr.com/photos/search' method='get' id="form">
 		<input type="text" name="text" value='(bytenight OR "byte night") -bytenight2007 -bytenight07' id="query">
 		<input type="submit" name="submit" value="hit me with some polaroiderizer joy" id="submit">
@@ -56,7 +56,9 @@
 	<script type="text/javascript">
 
 		$(document).ready(function() {
+            window.location.hash = 'bytenight'; // OR "byte night"';
 			$('#display').polaroiderizer();
+            $('#display').polaroiderizer.toggleFullscreen();
 		});
 	</script>
 </body>

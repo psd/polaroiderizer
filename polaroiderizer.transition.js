@@ -36,22 +36,30 @@
             
         // resize the photo to fit the viewport
         if (photo.height() > 400) {
-            photo.css({height: photo.height()*0.75, width:photo.width()*0.75});
+            photo.css({
+                height: photo.height() * 0.75, 
+                width: photo.width() * 0.75
+            });
         }
             
         // set starting point
         var x = 40 + Math.floor(Math.random() * ($('#display').width() - frame.width() - 80));
         var y = frame.height();
-        frame.css({top: '-'+y+'px', left: x+'px'});
+        frame.css({
+            top: '-' + y + 'px',
+            left: x + 'px'
+        });
 
         // set opacity of photo
-        photo.css({opacity: '0'});
+        photo.css({
+            opacity: '0'
+        });
 
         // animate photo opacity and into view.
-        frame.animate({top:'15px'}, 400);
+        frame.animate({top: '15px'}, 400);
         photo.animate({opacity: '1'}, 2000, function (picture) {
             // animate slowly out of view and opacity of entire object.
-            frame.animate({top:$('#display').height()+'px', opacity:'0'}, 5000, function () {
+            frame.animate({top: $('#display').height() + 'px', opacity: '0'}, 5000, function () {
                 frame.remove();
             });	
         });
@@ -70,14 +78,14 @@
         
         // resize the photo to fit the viewport
         if (photo.height() > 400) {
-            photo.css({height:photo.height()*0.75, width:photo.width()*0.75});
+            photo.css({height: photo.height()*0.75, width: photo.width()*0.75});
         }
         
-        var x = ($('#display').width() - frame.width()) /2;
-        var y = ($('#display').height() - frame.height()) /2;
-        frame.css({top: y+'px', left: x+'px', opacity: '0'});
+        var x = ($('#display').width() - frame.width()) / 2;
+        var y = ($('#display').height() - frame.height()) / 2;
+        frame.css({top: y + 'px', left: x + 'px', opacity: '0'});
         frame.animate({opacity: '1'}, 2000, function (pic) {
-            frame.animate({opacity:'0'}, 3000, function () {
+            frame.animate({opacity: '0'}, 3000, function () {
                 frame.remove();
             });				
         });
@@ -94,12 +102,12 @@
         // resize the photo to fit the viewport
         var photo = $(this).find('img');
         if (photo.height() > 400) {
-            photo.css({height:photo.height()*0.75, width:photo.width()*0.75});
+            photo.css({height: photo.height() * 0.75, width: photo.width() * 0.75});
         }
         
-        var x = ($('#display').width() - frame.width()) /2;
-        var y = ($('#display').height() - frame.height()) /2;
-        frame.css({top: y+'px', left: x+'px'});
+        var x = ($('#display').width() - frame.width()) / 2;
+        var y = ($('#display').height() - frame.height()) / 2;
+        frame.css({top: y + 'px', left: x + 'px'});
         return this;				
     };
 

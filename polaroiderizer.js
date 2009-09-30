@@ -1,9 +1,12 @@
-    /*
+/*
  * Polaroiderizer - slideshow from feeds using jQuery
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
+ *
+ * depends upon jQuery and the Async plugin:
+ *   http://plugins.jquery.com/project/async
  *
  */
 
@@ -23,9 +26,22 @@
             delay: 300000,
             bulk: 0,
             loop: function () {
-                $.fn.polaroidizer.feed.flickr(query); 
+                $.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
+        $.whileAsync({
+            delay: 300000,
+            bulk: 0,
+            loop: function () {
+                $.fn.polaroiderizer.feed.twitter(query); 
+            } 
+        });
+    }
+
+    function show(item) {
+        //console.log("show:",item);
+        $(item).clone().transition();
+        $(item).addClass('shown');
     }
 
     function runDisplay() {
@@ -33,18 +49,12 @@
             delay: 3000,
             bulk: 0,
             loop: function () {
-                console.log("display");
-
-                var item = $('#staging .ready(0)');
-                if (!item) {
+                var items = $('#staging .ready').not('.shown');
+                if (items.length > 0) {
+                    show(items[0]);
                     return;
                 }
-                $(item).transition();
-
-                // update status
-                var title = $(item).find('img').attr('title');
-                var link = $(item).clone().empty().text(title);
-                $('#status').html(link);
+                $('#staging .ready').removeClass('shown');
             }
         });
     }
@@ -54,22 +64,12 @@
             return;
         }
         running = true;
+        runDisplay();
+        runFeeds();
     }
 
-    /*
-     *  UI
-     */
-    function toggleFullscreen(argument) {
-        var display = $('#display');
-        $('#title, #form, #controls, #footer').toggle();
-        $('body').toggleClass('kiosk');
-        display.toggleClass('kiosk');
-        if (display.hasClass('kiosk')) {
-            var h = $(window).height() + 'px';
-            display.height(h);
-        } else {
-            display.height('500px');
-        }
+    function statusMessage(message) {
+        $('#status').html(message);
     }
 
     /*
@@ -121,21 +121,56 @@
         });
     };
 
-    $.fn.polaroiderizer.statusMessage = function (message) {
-        $('#status').html(message);
-    };
+    /*
+     *  UI stuff
+     */
+    $.fn.polaroiderizer.toggleFullscreen = function (argument) {
+        var display = $('#display');
+        $('#title, #form, #controls, #footer').toggle();
+        $('body').toggleClass('kiosk');
+        display.toggleClass('kiosk');
+        if (display.hasClass('kiosk')) {
+            var h = $(window).height() + 'px';
+            display.height(h);
+        } else {
+            display.height('500px');
+        }
+    }
 
+
+    /*
+     *  add item to staging area, which is also the display queue
+     */
     $.fn.polaroiderizer.add = function (item) {
-        $('<img src="' + item.profile_image_url + '" title="' + item.from_user + '">')
-            .load(function () {
-                this.addClass("ready");
-            })
-            .appendTo('#staging');
+        if ($("#" + item.id).length > 0) {
+            return;
+        }
+        var polaroid = $('<div class="' + item.type + '" id="' + item.id + '"/>');
+        if (item.avatar) {
+            $('<img src="' + item.avatar.src + '" title="' + item.title + '">')
+                .load(function () {
+                    $(this).parent().addClass("ready");
+                }).appendTo(polaroid);
+        }
+        if (item.img) {
+            $('<img src="' + item.img.src + '" title="' + item.title + '">')
+                .load(function () {
+                    $(this).parent().addClass("ready");
+                }).appendTo(polaroid);
+        } else {
+            $('<div class="text">' + item.text + '</div>').appendTo(polaroid);
+        }
+        polaroid.appendTo('#staging');
     };
 
-    // flickr search feed
+    /*
+     *  feed handling
+     */
+    $.fn.polaroiderizer.feed = function () {
+    };
+
     $.fn.polaroiderizer.feed.flickr = function (text) {
-        this.statusMessage('checking flickr for photo s' + text + '...');
+        statusMessage('checking flickr for photos ..');
         var nphotos = 5;
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
 
@@ -150,11 +185,12 @@
             $.each(data.photos.photo, function (i, item) {
                 $.fn.polaroiderizer.add({
                     type: 'photo', 
+                    id: 'flickr_' + item.id,
                     user: item.owner,
                     title: item.title, 
                     text: item.description,
                     img: {
-                        src: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.s,
+                        src: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg',
                         href: 'http://flickr.com/photos/' + item.owner + '/' + item.id
                     }
                 });
@@ -162,22 +198,32 @@
         });
     };
 
-    // twitter search feed
     $.fn.polaroiderizer.feed.twitter = function (text) {
-        this.statusMessage('searching twitter for tweets ...');
+        statusMessage('checking twitter for tweets ..');
 
         var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&callback=?';
 
         $.getJSON(uri, function (data) {
             $.each(data.results, function (i, item) {
+
+                // TBD:- turn twitpics into photos :
+                // http://yfrog.com/15vfizj ->  http://yfrog.com/15vfizj:iphone
+                // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
+                // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
+
                 $.fn.polaroiderizer.add({
                     type: 'tweet', 
+                    id: 'twitter_' + item.id,
                     user: item.from_user,
-                    avatar: item.profile_image_url, 
+                    avatar: {
+                        src: item.profile_image_url, 
+                        href: "http://twitter.com/" + escape(item.from_user)
+                    },
                     title: item.from_user, 
                     text: item.text
                 });
             });
         });
     };
+
 }(jQuery));

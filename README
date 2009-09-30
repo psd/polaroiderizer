@@ -4,3 +4,11 @@ It uses jQuery to animated images grabbed from flickr.
 Forked by psd for bytenight:
 
 # split into modules, for extension
+
+TBD:
+# slowly pick random transitions
+
+
+http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos
+
+http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos
