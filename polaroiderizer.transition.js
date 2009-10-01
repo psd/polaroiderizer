@@ -14,46 +14,34 @@
 
     // choose a transition effect
     $.fn.transition = function () {
-        var effect = $('#options a.selected').text();
-        if (effect == 'polaroids') {
-            this.polaroidScroll();
-        } else if (effect == 'faders') {
-            this.faders();	
-        } else if (effect == 'plain') {
-            this.plain();	
-        }	
+        //this.polaroidScroll();
+        //this.faders();	
+        this.plain();	
         return this;
     };
 
-    $.fn.polaroidScroll = function () {
-        
+    $.fn.addFrame = function (type) {
         $('#display div.plain').remove();
-                    
-        var frame = $('<div class="polaroid"></div>').append(this);
-        var photo = $(this).find('img');
-
+        var frame = $('<div class="' +  type+ '"></div>').append(this);
         $('#display').append(frame);
-            
-        // resize the photo to fit the viewport
+        var photo = $(this).find('img');
         if (photo.height() > 400) {
-            photo.css({
-                height: photo.height() * 0.75, 
-                width: photo.width() * 0.75
-            });
+            photo.css({height: photo.height() * 0.75, width: photo.width() * 0.75});
         }
+        return $(frame).find('div');
+    }
+
+    $.fn.polaroidScroll = function () {
+        var frame = this.addFrame('polaroid');
+        var photo = $(this).find('img');
             
         // set starting point
-        var x = 40 + Math.floor(Math.random() * ($('#display').width() - frame.width() - 80));
+        var x = 40 + Math.floor(Math.random() * ($('#display').width() - frame.width() - 200));
         var y = frame.height();
-        frame.css({
-            top: '-' + y + 'px',
-            left: x + 'px'
-        });
+        frame.css({ top: '-' + y + 'px', left: x + 'px' });
 
         // set opacity of photo
-        photo.css({
-            opacity: '0'
-        });
+        photo.css({ opacity: '0' });
 
         // animate photo opacity and into view.
         frame.animate({top: '15px'}, 400);
@@ -68,19 +56,7 @@
 
     // fading animation effect
     $.fn.faders = function () {
-        
-        $('#display div.plain').remove();
-            
-        var frame = $('<div class="fader"></div>').append(this);
-        var photo = $(this).find('img');
-
-        $('#display').append(frame);
-        
-        // resize the photo to fit the viewport
-        if (photo.height() > 400) {
-            photo.css({height: photo.height()*0.75, width: photo.width()*0.75});
-        }
-        
+        var frame = this.addFrame('faders');
         var x = ($('#display').width() - frame.width()) / 2;
         var y = ($('#display').height() - frame.height()) / 2;
         frame.css({top: y + 'px', left: x + 'px', opacity: '0'});
@@ -94,19 +70,9 @@
 
     // simplest.effect
     $.fn.plain = function () {
-
-        $('#display div.plain').remove();
-        var frame = $('<div class="plain"></div>').append(this);
-        $('#display').append(frame);
-        
-        // resize the photo to fit the viewport
-        var photo = $(this).find('img');
-        if (photo.height() > 400) {
-            photo.css({height: photo.height() * 0.75, width: photo.width() * 0.75});
-        }
-        
-        var x = ($('#display').width() - frame.width()) / 2;
-        var y = ($('#display').height() - frame.height()) / 2;
+        var frame = this.addFrame('plain');
+        var x = ($('#display').width() - $(frame).width()) / 2;
+        var y = ($('#display').height() - $(frame).height()) / 2;
         frame.css({top: y + 'px', left: x + 'px'});
         return this;				
     };

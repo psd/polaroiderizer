@@ -11,7 +11,7 @@ h1 {
 }
 
 #staging {
-	/*display:none;*/
+	display:none;
 }
 
 
@@ -98,28 +98,7 @@ form {
     border-style:none;
 }
 
-/* polaroid styling */
-div.polaroid {
-    position:absolute;
-    background-color:#fff;
-    border: solid 1px #000;
-}
-div.polaroid a {
-    border-bottom:solid 3px transparent;
-}
-div.polaroid a:hover {
-    border-bottom:solid 3px #D30076;
-}
-div.photo img {
-    border:solid 10px #fff;
-    border-bottom-width:40px;
-}
 
-div.tweet {
-    width: 20em;
-    text-align: right;
-    padding: 1em;
-}
 
 /*  faders style */
 #display div.fader {
@@ -221,9 +200,57 @@ span a:active {
 
 body.kiosk {
 	padding:0;
+    background-color: #000;
 }
 div#display.kiosk {
 	margin-top:0;
 	border-style:none;
 	padding:0;
+}
+
+/* polaroid styling */
+#display .photo {
+    background-color:#fff;
+    border: solid 1px #000;
+}
+#display .photo a {
+    border-bottom:solid 3px transparent;
+}
+#display .photo a:hover {
+    border-bottom:solid 3px #D30076;
+}
+#display .photo img {
+    border: 10px solid #fff;
+}
+
+#display .photo .title {
+    background-color: #fff;
+    color: #000;
+    text-align: right;
+    padding: 10px;
+}
+
+#display .photo,
+#display .tweet {
+    border-bottom: solid 1px #eeeee0;
+    border-right: solid 1px #eeeee0;
+}
+
+/* twitter message */
+#display .tweet {
+    background-color: #fff;
+    padding: 1em;
+    width: 300px;
+}
+
+#display .tweet img {
+    float: left;
+    border: solid 2px #000;
+    margin: 20px 10px 0px 20px;
+}
+
+#display .tweet p {
+    color: #000;
+    font-size: 1em;
+    margin: 20px 10px 10px 20px;
 }

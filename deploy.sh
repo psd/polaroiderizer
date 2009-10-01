@@ -4,8 +4,11 @@ dir=/data/vhost/bytenight.osmosoft.com/html/
 #ssh $user mkdir $dir/plugins
 #scp plugins/jquery.async.js $user:$dir/plugins
 
-scp bytenight.html $user:$dir/bytenight.html
-scp polaroiderizer.js $user:$dir
-scp polaroiderizer.transition.js $user:$dir
-scp styles.css $user:$dir
+#scp bytenight.html $user:$dir/bytenight.html
+#scp polaroiderizer.js $user:$dir
+#scp polaroiderizer.transition.js $user:$dir
+#scp styles.css $user:$dir
+
+scp join-us.html $user:$dir
+
 

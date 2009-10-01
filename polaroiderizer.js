@@ -23,7 +23,7 @@
     function runFeeds() {
         var query = $('#query').val();
         $.whileAsync({
-            delay: 300000,
+            delay: 3000000,
             bulk: 0,
             loop: function () {
                 $.fn.polaroiderizer.feed.flickr(query); 
@@ -39,14 +39,14 @@
     }
 
     function show(item) {
-        //console.log("show:",item);
+        statusMessage('..');
         $(item).clone().transition();
         $(item).addClass('shown');
     }
 
     function runDisplay() {
         $.whileAsync({
-            delay: 3000,
+            delay: 6000,
             bulk: 0,
             loop: function () {
                 var items = $('#staging .ready').not('.shown');
@@ -141,7 +141,7 @@
     /*
      *  add item to staging area, which is also the display queue
      */
-    $.fn.polaroiderizer.add = function (item) {
+    $.fn.polaroiderizer.addItem = function (item) {
         if ($("#" + item.id).length > 0) {
             return;
         }
@@ -157,8 +157,11 @@
                 .load(function () {
                     $(this).parent().addClass("ready");
                 }).appendTo(polaroid);
-        } else {
-            $('<div class="text">' + item.text + '</div>').appendTo(polaroid);
+        } 
+        if (item.title) {
+            $('<p class="title">' + item.title + ' by <a href="">' + item.user + '</a></p>').appendTo(polaroid);
+        } else if (item.text) {
+            $('<p class="text">' + item.text + '</p>').appendTo(polaroid);
         }
         polaroid.appendTo('#staging');
     };
@@ -183,7 +186,7 @@
 
         $.getJSON(uri, function (data) {
             $.each(data.photos.photo, function (i, item) {
-                $.fn.polaroiderizer.add({
+                $.fn.polaroiderizer.addItem({
                     type: 'photo', 
                     id: 'flickr_' + item.id,
                     user: item.owner,
@@ -211,7 +214,7 @@
                 // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
                 // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
 
-                $.fn.polaroiderizer.add({
+                $.fn.polaroiderizer.addItem({
                     type: 'tweet', 
                     id: 'twitter_' + item.id,
                     user: item.from_user,
@@ -219,7 +222,6 @@
                         src: item.profile_image_url, 
                         href: "http://twitter.com/" + escape(item.from_user)
                     },
-                    title: item.from_user, 
                     text: item.text
                 });
             });
