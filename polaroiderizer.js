@@ -76,8 +76,8 @@
      *  plugin initialisation
      */
     $.fn.polaroiderizer = function (options) {
-        var defaults = {},
-            settings = $.extend(true, defaults, options);
+        var defaults = {};
+        var settings = $.extend(true, defaults, options);
 
         // handle the form submission.
         $('#form').submit(function () {
@@ -98,13 +98,13 @@
 
         // fullscreen UI selector
         $('a.toggleFullscreen').click(function () {
-            toggleFullscreen();
+            $.fn.polaroiderizer.toggleFullscreen();
         });
         
         $().keypress(function (e) {
             if (!$(e.target).is('#query')) {
                 if (e.which === 102) {
-                    toggleFullscreen();
+                    $.fn.polaroiderizer.toggleFullscreen();
                 }
             }
         });
@@ -135,7 +135,7 @@
         } else {
             display.height('500px');
         }
-    }
+    };
 
 
     /*

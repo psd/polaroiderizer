@@ -1,14 +1,19 @@
 Polaroiderizer is a little demo of using unobtrusive Javascript to make a simple slideshow.
 It uses jQuery to animated images grabbed from flickr.
 
-Forked by psd for bytenight:
+Forked by psd for http://bytenight.osmosoft.com
 
-# split into modules, for extension
+-- some generic changes which may be useful for the core:
 
 TBD:
-# slowly pick random transitions
+# style tweets
+# style photos as polaraoids
+# twitpic
+# add photo title / attribution
+# slowly cycle through random transitions
+# block feed
 
 
+Other possible sources of data:
 http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos
-
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos
