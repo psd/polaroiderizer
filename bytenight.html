@@ -44,8 +44,7 @@
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-            window.location.hash = 'bytenight'; // OR "byte night"';
-			$('#display').polaroiderizer();
+			$('#display').polaroiderizer({query: 'bytenight OR "byte night"'});
             $('#display').polaroiderizer.toggleFullscreen();
 		});
 	</script>

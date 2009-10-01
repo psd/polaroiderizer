@@ -10,9 +10,8 @@ TBD:
 # style photos as polaraoids
 # twitpic
 # add photo title / attribution
-# slowly cycle through random transitions
 # block feed
-
+# slowly cycle through random transitions
 
 Other possible sources of data:
 http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos

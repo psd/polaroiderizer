@@ -39,7 +39,7 @@
     }
 
     function show(item) {
-        statusMessage('..');
+        //statusMessage('..');
         $(item).clone().transition();
         $(item).addClass('shown');
     }
@@ -83,17 +83,21 @@
         $('#form').submit(function () {
             var query = $('#query').val();
             window.location.hash = '#' + query;
-
             $('#staging').empty();
 
             runTasks();
             return false;
         });
 
-        // get the fragment identifier
-        if (window.location.hash) {
-            $('#query').val(window.location.hash.split('#')[1]);
-            $('form').submit();
+        if (settings.query) {
+            $('#query').val(settings.query);
+            runTasks();
+        } else {
+            // get the fragment identifier
+            if (window.location.hash) {
+                $('#query').val(window.location.hash.split('#')[1]);
+                $('form').submit();
+            }
         }
 
         // fullscreen UI selector
@@ -173,7 +177,7 @@
     };
 
     $.fn.polaroiderizer.feed.flickr = function (text) {
-        statusMessage('checking flickr for photos ..');
+        //statusMessage('checking flickr for photos ..');
         var nphotos = 5;
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
 
@@ -202,7 +206,7 @@
     };
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
-        statusMessage('checking twitter for tweets ..');
+        //statusMessage('checking twitter for tweets ..');
 
         var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&callback=?';
 
