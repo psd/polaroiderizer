@@ -18,7 +18,7 @@
     var flickrPhoto = {};
     
     $.fn.polaroiderizer.feed.flickr = function (text) {
-        var nphotos = 50; // max 50 in one page ..
+        var nphotos = 500; // max 500 in one page ..
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
 
         var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +

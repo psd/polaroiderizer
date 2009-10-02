@@ -17,7 +17,22 @@
 
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
-        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&rpp=100&callback=?';
+        var page = 1;
+        // eventually mop up old tweets .. hacky ..
+        switch (Math.floor(Math.random() * 20)) {
+        case 1:
+            page = 2;
+            break;
+        case 2:
+            page = 3;
+            break;
+        case 3:
+            page = 4;
+            break;
+        default: 
+            page = 1;
+        }
+        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&rpp=100&page=' + page + '&callback=?';
 
         $.getJSON(uri, function (data) {
             $.each(data.results, function (i, item) {

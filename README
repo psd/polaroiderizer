@@ -9,10 +9,11 @@ TBD:
 # twitpic
 # yfrog
 # ..
-# blocking feed
 # time ordered insertion
 # more transitions
-# page back through more history ..
+
+# page further back through more history ..
+# if count .size() < .. 
 
 Other sources of data:
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos

@@ -22,11 +22,11 @@
 
     function runFeeds() {
         var query = $('#query').val();
-        $.whileAsync({ delay: 30000, bulk: 0, loop: function () {
+        $.whileAsync({ delay: 600000, bulk: 0, loop: function () {
                 $.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
-        $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
+        $.whileAsync({ delay: 600000, bulk: 0, loop: function () { 
                 $.fn.polaroiderizer.feed.twitter(query);
             } 
         });
