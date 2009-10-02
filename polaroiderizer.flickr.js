@@ -15,10 +15,10 @@
 
 (function ($) {
 
-    flickrUser = {};
+    var flickrPhoto = {};
     
     $.fn.polaroiderizer.feed.flickr = function (text) {
-        var nphotos = 50;
+        var nphotos = 5; // max 50 in one page ..
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
 
         var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +
@@ -31,6 +31,10 @@
         $.getJSON(uri, function (data) {
             $.each(data.photos.photo, function (i, item) {
 
+                if (flickrPhoto[item.id]) {
+                    $.fn.polaroiderizer.addItem(flickrPhoto[item.id]);
+                    return;
+                } 
                 var newitem = {
                     type: 'photo', 
                     id: 'flickr_' + item.id,
@@ -41,22 +45,17 @@
                     img: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg',
                     href: 'http://flickr.com/photos/' + item.owner + '/' + item.id
                 };
-                if (flickrUser[item.owner]) {
-                    newitem.user = flickrUser[item.owner];
+                var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.getInfo' +
+                    '&api_key=' + api_key +
+                    '&photo_id=' + escape(item.id) +
+                    '&format=json' +
+                    '&jsoncallback=?';
+                $.getJSON(uri, function (item) {
+                    newitem.user = item.photo.owner.username;
+                    newitem.created = item.photo.dates.taken;
+                    flickrPhoto[item.id] = newitem;
                     $.fn.polaroiderizer.addItem(newitem);
-                } else {
-                    var uri = 'http://api.flickr.com/services/rest/?method=flickr.people.getInfo' +
-                        '&api_key=' + api_key +
-                        '&user_id=' + escape(item.owner) +
-                        '&per_page=' + nphotos +
-                        '&format=json' +
-                        '&jsoncallback=?';
-                    $.getJSON(uri, function (item) {
-                        newitem.user = item.person.username._content;
-                        flickrUser[item.person.nsid] = newitem.user;
-                        $.fn.polaroiderizer.addItem(newitem);
-                    });
-                }
+                });
             });
         });
     };

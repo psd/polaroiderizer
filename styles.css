@@ -230,6 +230,7 @@ div#display.kiosk {
     color: #000;
     text-align: right;
     padding: 10px;
+    padding-right: 30px;
 }
 
 #display .photo,
@@ -262,7 +263,9 @@ div#display.kiosk {
     font-weight: bold;
 }
 
+#display .photo a:link, 
 #display .tweet a:link, 
+#display .photo a:visited,
 #display .tweet a:visited {
 	color: #000;
 	text-decoration: none;
