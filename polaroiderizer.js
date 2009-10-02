@@ -23,7 +23,7 @@
     function runFeeds() {
         var query = $('#query').val();
         $.whileAsync({ delay: 600000, bulk: 0, loop: function () {
-                //$.fn.polaroiderizer.feed.flickr(query); 
+                $.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
         $.whileAsync({ delay: 600000, bulk: 0, loop: function () { 
@@ -183,9 +183,12 @@
         }
         var polaroid = $('<div class="' + item.type + '" id="' + item.id + '"/>');
         $('<a href="' + item.href + '"></a>').append(
-            $('<img src="' + item.img + '" title="' + item.user + '">')
+            $('<img src="' + item.img + '" title="' + item.user + ' ' + item.size + '">')
             .load(function () {
-                $(this).closest('div').addClass("ready");
+                var that = this;
+                window.setTimeout(function () {
+                    $(that).closest('div').addClass("ready");
+                }, 1000);
             })
         ).appendTo(polaroid);
     

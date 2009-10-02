@@ -18,6 +18,7 @@
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
 
+       //text = "twitpic";
 
         var page = 1;
         // eventually mop up old tweets .. hacky ..
@@ -39,17 +40,6 @@
         $.getJSON(uri, function (data) {
             $.each(data.results, function (i, item) {
 
-                // TBD:- turn twitpics into photos :
-                // http://yfrog.com/15vfizj ->  http://yfrog.com/15vfizj:iphone
-                // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
-                // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
-
-                var text = item.text;
-                text = text.replace(/(http:[\S]+)/g, "<a href='$1'>$1</a>");
-                text = text.replace(/@([\w]+)/g, "@<span class='vcard'><a href='http:\/\/twitter.com/$1' class='fn' rel='contact'>$1<\/a></span>");
-                text = text.replace(/#([^<\s][\S]+)/g, "#<a href='http:\/\/search.twitter.com\/q=$1' rel='tag'>$1<\/a>");
-                text = text.replace(/L:(.*)/, "L:<a href='http:\/\/maps.google.com/maps?f=q&q=$1'>$1<\/a>");
-
                 var newitem = {
                     type: 'tweet', 
                     id: 'twitter_' + item.id,
@@ -60,6 +50,27 @@
                     created: item.created_at,
                     text: text
                 };
+
+                var text = item.text;
+
+                // TBD:- turn twitpics into photos :
+                // http://twitpic.com/1234 -> http://twitpic.com/show/full/1234
+                // http://yfrog.com/15vfizj ->  http://yfrog.com/15vfizj:iphone
+                // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
+                // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
+
+                var m = text.match(/(http:\/\/twitpic\.com\/)([^ ]+)/);
+                if (m) {
+                    newitem.type = "photo";
+                    newitem.img = m[1] + "show/thumb/" + m[2];
+                }
+
+                text = text.replace(/(http:[\S]+)/g, "<a href='$1'>$1</a>");
+                text = text.replace(/@([\w]+)/g, "@<span class='vcard'><a href='http:\/\/twitter.com/$1' class='fn' rel='contact'>$1<\/a></span>");
+                text = text.replace(/#([^<\s][\S]+)/g, "#<a href='http:\/\/search.twitter.com\/q=$1' rel='tag'>$1<\/a>");
+                text = text.replace(/L:(.*)/, "L:<a href='http:\/\/maps.google.com/maps?f=q&q=$1'>$1<\/a>");
+
+                newitem.text = text;
 
                 $.fn.polaroiderizer.addItem(newitem);
             });

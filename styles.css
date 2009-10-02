@@ -225,7 +225,8 @@ div#display.kiosk {
     border: 10px solid #fff;
 }
 
-#display .photo .title {
+#display .photo .title,
+#display .photo p {
     background-color: #fff;
     color: #000;
     text-align: right;
