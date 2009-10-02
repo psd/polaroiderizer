@@ -240,17 +240,17 @@ div#display.kiosk {
 #display .tweet {
     background-color: #fff;
     padding: 1em;
-    width: 300px;
+    width: 450px;
 }
 
 #display .tweet img {
     float: left;
-    border: solid 2px #000;
-    margin: 20px 10px 0px 20px;
+    border: none;
+    margin: 30px 10px 0px 20px;
 }
 
 #display .tweet p {
     color: #000;
     font-size: 1em;
-    margin: 20px 10px 10px 20px;
+    margin: 25px 10px 10px 20px;
 }

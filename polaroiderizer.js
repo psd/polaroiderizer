@@ -26,7 +26,7 @@
             delay: 3000000,
             bulk: 0,
             loop: function () {
-                $.fn.polaroiderizer.feed.flickr(query); 
+                //$.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
         $.whileAsync({
@@ -39,7 +39,7 @@
     }
 
     function show(item) {
-        //statusMessage('..');
+        statusMessage('');
         $(item).clone().transition();
         $(item).addClass('shown');
     }
@@ -163,9 +163,9 @@
                 }).appendTo(polaroid);
         } 
         if (item.title) {
-            $('<p class="title">' + item.title + ' by <a href="">' + item.user + '</a></p>').appendTo(polaroid);
+            $('<p class="title">' + item.title + ' by <a href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
         } else if (item.text) {
-            $('<p class="text">' + item.text + '</p>').appendTo(polaroid);
+            $('<p class="text"><a href="' + item.profile + '">' + item.user + '</a> ' + item.text + '</p>').appendTo(polaroid);
         }
         polaroid.appendTo('#staging');
     };
@@ -177,7 +177,7 @@
     };
 
     $.fn.polaroiderizer.feed.flickr = function (text) {
-        //statusMessage('checking flickr for photos ..');
+        statusMessage('f ..');
         var nphotos = 5;
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
 
@@ -195,6 +195,7 @@
                     id: 'flickr_' + item.id,
                     user: item.owner,
                     title: item.title, 
+                    profile: "http://twitter.com/" + escape(item.from_user),
                     text: item.description,
                     img: {
                         src: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg',
@@ -206,7 +207,7 @@
     };
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
-        //statusMessage('checking twitter for tweets ..');
+        statusMessage('t ..');
 
         var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&callback=?';
 
@@ -222,6 +223,7 @@
                     type: 'tweet', 
                     id: 'twitter_' + item.id,
                     user: item.from_user,
+                    profile: "http://twitter.com/" + escape(item.from_user),
                     avatar: {
                         src: item.profile_image_url, 
                         href: "http://twitter.com/" + escape(item.from_user)
