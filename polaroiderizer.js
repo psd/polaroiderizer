@@ -22,33 +22,23 @@
 
     function runFeeds() {
         var query = $('#query').val();
-        $.whileAsync({
-            delay: 3000000,
-            bulk: 0,
-            loop: function () {
+        $.whileAsync({ delay: 3000000, bulk: 0, loop: function () {
                 //$.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
-        $.whileAsync({
-            delay: 300000,
-            bulk: 0,
-            loop: function () {
-                $.fn.polaroiderizer.feed.twitter(query); 
+        $.whileAsync({ delay: 300000, bulk: 0, loop: function () { 
+                $.fn.polaroiderizer.feed.twitter(query);
             } 
         });
     }
 
     function show(item) {
-        statusMessage('');
         $(item).clone().transition();
         $(item).addClass('shown');
     }
 
     function runDisplay() {
-        $.whileAsync({
-            delay: 6000,
-            bulk: 0,
-            loop: function () {
+        $.whileAsync({ delay: 6000, bulk: 0, loop: function () {
                 var items = $('#staging .ready').not('.shown');
                 if (items.length > 0) {
                     show(items[0]);
@@ -141,6 +131,26 @@
         }
     };
 
+    function relative_time(time_value) {
+        var parsed_date = Date.parse(time_value);
+        var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
+        var delta = parseInt((relative_to.getTime() - parsed_date) / 1000, 10);
+        if (delta < 60) {
+            return 'less than a minute ago';
+        } else if (delta < 120) {
+            return 'about a minute ago';
+        } else if (delta < (45 * 60)) {
+            return (parseInt(delta / 60, 10)).toString() + ' minutes ago';
+        } else if (delta < (90 * 60)) {
+            return 'about an hour ago';
+        } else if (delta < (24 * 60 * 60)) {
+            return 'about ' + (parseInt(delta / 3600, 10)).toString() + ' hours ago';
+        } else if (delta < (48 * 60 * 60)) {
+            return '1 day ago';
+        } else {
+            return (parseInt(delta / 86400, 10)).toString() + ' days ago';
+        }
+    }
 
     /*
      *  add item to staging area, which is also the display queue
@@ -150,88 +160,28 @@
             return;
         }
         var polaroid = $('<div class="' + item.type + '" id="' + item.id + '"/>');
-        if (item.avatar) {
-            $('<img src="' + item.avatar.src + '" title="' + item.title + '">')
+        $('<a href="' + item.href + '"></a>').append(
+            $('<img src="' + item.img + '" title="' + item.user + '">')
                 .load(function () {
-                    $(this).parent().addClass("ready");
-                }).appendTo(polaroid);
-        }
-        if (item.img) {
-            $('<img src="' + item.img.src + '" title="' + item.title + '">')
-                .load(function () {
-                    $(this).parent().addClass("ready");
-                }).appendTo(polaroid);
-        } 
+                    $(this).closest('div').addClass("ready");
+                })).appendTo(polaroid);
+    
         if (item.title) {
-            $('<p class="title">' + item.title + ' by <a href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
+            $('<p class="title">' + item.title + ' by <a class="author" href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
         } else if (item.text) {
-            $('<p class="text"><a href="' + item.profile + '">' + item.user + '</a> ' + item.text + '</p>').appendTo(polaroid);
+            $('<p class="text"><a class="author" href="' + item.profile + '">' + item.user + '</a> ' + item.text + '</p>').appendTo(polaroid);
         }
+
+        if (item.created) {
+            $('<p class="time"><a href="' + item.href + '">' + relative_time(item.created) + '</a></p>').appendTo(polaroid);
+        }
+
         polaroid.appendTo('#staging');
     };
 
     /*
      *  feed handling
      */
-    $.fn.polaroiderizer.feed = function () {
-    };
-
-    $.fn.polaroiderizer.feed.flickr = function (text) {
-        statusMessage('f ..');
-        var nphotos = 5;
-        var api_key = '0a346a54dbca829015b11fcac9e70c6f';
-
-        var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +
-            '&api_key=' + api_key +
-            '&text=' + escape(text) +
-            '&per_page=' + nphotos +
-            '&format=json' +
-            '&jsoncallback=?';
-
-        $.getJSON(uri, function (data) {
-            $.each(data.photos.photo, function (i, item) {
-                $.fn.polaroiderizer.addItem({
-                    type: 'photo', 
-                    id: 'flickr_' + item.id,
-                    user: item.owner,
-                    title: item.title, 
-                    profile: "http://twitter.com/" + escape(item.from_user),
-                    text: item.description,
-                    img: {
-                        src: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg',
-                        href: 'http://flickr.com/photos/' + item.owner + '/' + item.id
-                    }
-                });
-            });
-        });
-    };
-
-    $.fn.polaroiderizer.feed.twitter = function (text) {
-        statusMessage('t ..');
-
-        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&callback=?';
-
-        $.getJSON(uri, function (data) {
-            $.each(data.results, function (i, item) {
-
-                // TBD:- turn twitpics into photos :
-                // http://yfrog.com/15vfizj ->  http://yfrog.com/15vfizj:iphone
-                // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
-                // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
-
-                $.fn.polaroiderizer.addItem({
-                    type: 'tweet', 
-                    id: 'twitter_' + item.id,
-                    user: item.from_user,
-                    profile: "http://twitter.com/" + escape(item.from_user),
-                    avatar: {
-                        src: item.profile_image_url, 
-                        href: "http://twitter.com/" + escape(item.from_user)
-                    },
-                    text: item.text
-                });
-            });
-        });
-    };
+    $.fn.polaroiderizer.feed = function () { };
 
 }(jQuery));

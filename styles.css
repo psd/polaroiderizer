@@ -145,7 +145,7 @@ ul#options li a.selected:hover, ul#options li a.selected:focus, ul#options li a.
 }
 
 
-span {
+span.toggle {
 	color:#777;
 	display:block;
 	font-size:0.7em;
@@ -153,7 +153,8 @@ span {
 	margin-top:4px;
 }
 
-span a:link, span a:visited {
+span.toggle a:link, 
+span.toggle a:visited {
 	color:#444;
 	background-color:#eee;
 	border:solid 1px #ccc;
@@ -161,12 +162,13 @@ span a:link, span a:visited {
 	line-height:2em;
 	text-decoration:none;
 }
-span a:hover, span a:focus {
+span.toggle a:hover, 
+span.toggle a:focus {
 	color:#222;
 	border-color:#999;
 	border-bottom:solid 2px #999;
 }
-span a:active {
+span.toggle a:active {
 	color:#222;
 	background-color:#ccc;
 	border-color:#666;
@@ -247,6 +249,7 @@ div#display.kiosk {
     float: left;
     border: none;
     margin: 30px 10px 0px 20px;
+    padding-bottom: 40px;
 }
 
 #display .tweet p {
@@ -254,3 +257,33 @@ div#display.kiosk {
     font-size: 1em;
     margin: 25px 10px 10px 20px;
 }
+
+.author {
+    font-weight: bold;
+}
+
+#display .tweet a:link, 
+#display .tweet a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+#display .tweet a:hover, 
+#display .tweet a:active {
+	color: #000;
+	text-decoration: underline;
+}
+
+.time {
+    text-align: right;
+    padding-right: 30px;
+}
+
+#display .time a:link, 
+#display .time a:visited, 
+#display .time a:hover, 
+#display .time a:active {
+    color: #888;
+    font-size: 0.8em;
+}
+
