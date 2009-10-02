@@ -9,13 +9,10 @@ TBD:
 # twitpic
 # yfrog
 # ..
-# time ordered insertion
-# more transitions
 
-# page further back through more history ..
-# if count .size() < .. 
+# time ordered insertion to better mixup tweets and photos ..
+# more transitions
 
 Other sources of data:
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos
-
 http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos

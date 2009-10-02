@@ -17,6 +17,8 @@
 
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
+
+
         var page = 1;
         // eventually mop up old tweets .. hacky ..
         switch (Math.floor(Math.random() * 20)) {
@@ -48,7 +50,7 @@
                 text = text.replace(/#([^<\s][\S]+)/g, "#<a href='http:\/\/search.twitter.com\/q=$1' rel='tag'>$1<\/a>");
                 text = text.replace(/L:(.*)/, "L:<a href='http:\/\/maps.google.com/maps?f=q&q=$1'>$1<\/a>");
 
-                $.fn.polaroiderizer.addItem({
+                var newitem = {
                     type: 'tweet', 
                     id: 'twitter_' + item.id,
                     href: 'http://twitter.com/' + item.from_user + '/statuses/' + item.id,
@@ -57,7 +59,9 @@
                     img: item.profile_image_url, 
                     created: item.created_at,
                     text: text
-                });
+                };
+
+                $.fn.polaroiderizer.addItem(newitem);
             });
         });
     };

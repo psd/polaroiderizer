@@ -23,7 +23,7 @@
     function runFeeds() {
         var query = $('#query').val();
         $.whileAsync({ delay: 600000, bulk: 0, loop: function () {
-                $.fn.polaroiderizer.feed.flickr(query); 
+                //$.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
         $.whileAsync({ delay: 600000, bulk: 0, loop: function () { 
@@ -154,6 +154,7 @@
         var parsed_date = Date.parse(time_value);
         var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
         var delta = parseInt((relative_to.getTime() - parsed_date) / 1000, 10);
+    delta = delta - 60*60; // BST hack!
         if (delta < 60) {
             return 'less than a minute ago';
         } else if (delta < 120) {
