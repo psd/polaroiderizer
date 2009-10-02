@@ -26,8 +26,23 @@
                 $.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
-        $.whileAsync({ delay: 300000, bulk: 0, loop: function () { 
-                //$.fn.polaroiderizer.feed.twitter(query);
+        $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
+                $.fn.polaroiderizer.feed.twitter(query);
+            } 
+        });
+        $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
+                // Hmm ..
+                //$.fn.polaroiderizer.feed.moderated(query);
+                var uri = 'http://bytenight.osmosoft.com/moderated/?callback=?';
+                $.getJSON(uri, function (data) {
+                    $.each(data.results, function (i, item) {
+                        if (item.blocked) {
+                            $('#' + item.id).addClass('blocked');
+                        } else {
+                            $('#' + item.id).removeClass('blocked');
+                        }
+                    });
+                });
             } 
         });
     }
@@ -39,7 +54,7 @@
 
     function runDisplay() {
         $.whileAsync({ delay: 6000, bulk: 0, loop: function () {
-                var items = $('#staging .ready').not('.shown');
+                var items = $('#staging .ready').not('.shown').not('.blocked');
                 if (items.length > 0) {
                     show(items[0]);
                     return;
@@ -168,9 +183,10 @@
         var polaroid = $('<div class="' + item.type + '" id="' + item.id + '"/>');
         $('<a href="' + item.href + '"></a>').append(
             $('<img src="' + item.img + '" title="' + item.user + '">')
-                .load(function () {
-                    $(this).closest('div').addClass("ready");
-                })).appendTo(polaroid);
+            .load(function () {
+                $(this).closest('div').addClass("ready");
+            })
+        ).appendTo(polaroid);
     
         if (item.title) {
             $('<p class="title">' + item.title + ' by <a class="author" href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
