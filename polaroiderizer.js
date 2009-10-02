@@ -147,8 +147,10 @@
             return 'about ' + (parseInt(delta / 3600, 10)).toString() + ' hours ago';
         } else if (delta < (48 * 60 * 60)) {
             return '1 day ago';
-        } else {
+        } else if (delta < (365 * 24 * 60 * 60)) {
             return (parseInt(delta / 86400, 10)).toString() + ' days ago';
+        } else {
+            return 'over a year ago';
         }
     }
 
