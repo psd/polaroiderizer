@@ -6,13 +6,16 @@ Forked by psd for http://bytenight.osmosoft.com
 -- some generic changes which may be useful for the core:
 
 TBD:
-# style tweets
-# style photos as polaraoids
+flickr photographer name 
+# time ordered insertion
 # twitpic
-# add photo title / attribution
+# yfrog
+# ..
 # block feed
 # slowly cycle through random transitions
+# test with large numbers of photos
 
-Other possible sources of data:
-http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos
+Other sources of data:
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos
+
+http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos

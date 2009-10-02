@@ -23,11 +23,11 @@
     function runFeeds() {
         var query = $('#query').val();
         $.whileAsync({ delay: 3000000, bulk: 0, loop: function () {
-                //$.fn.polaroiderizer.feed.flickr(query); 
+                $.fn.polaroiderizer.feed.flickr(query); 
             } 
         });
         $.whileAsync({ delay: 300000, bulk: 0, loop: function () { 
-                $.fn.polaroiderizer.feed.twitter(query);
+                //$.fn.polaroiderizer.feed.twitter(query);
             } 
         });
     }
