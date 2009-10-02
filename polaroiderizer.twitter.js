@@ -18,9 +18,11 @@
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
 
-       //text = "twitpic";
+        // text = "img.ly OR twitgoo OR twitpic OR yfrog";
 
         var page = 1;
+        var rpp = 100;
+
         // eventually mop up old tweets .. hacky ..
         switch (Math.floor(Math.random() * 20)) {
         case 1:
@@ -35,7 +37,7 @@
         default: 
             page = 1;
         }
-        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&rpp=100&page=' + page + '&callback=?';
+        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&rpp=' + rpp + '&page=' + page + '&callback=?';
 
         $.getJSON(uri, function (data) {
             $.each(data.results, function (i, item) {
@@ -53,17 +55,36 @@
 
                 var text = item.text;
 
-                // TBD:- turn twitpics into photos :
                 // http://twitpic.com/1234 -> http://twitpic.com/show/full/1234
-                // http://yfrog.com/15vfizj ->  http://yfrog.com/15vfizj:iphone
-                // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
-                // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
-
-                var m = text.match(/(http:\/\/twitpic\.com\/)([^ ]+)/);
+                var m = text.match(/(http:\/\/twitpic\.com\/)([0-9a-zA-Z]+)/);
                 if (m) {
                     newitem.type = "photo";
                     newitem.img = m[1] + "show/thumb/" + m[2];
                 }
+
+                // http://img.ly/4gx -> http://img.ly/show/thumb/4gx
+                var m = text.match(/(http:\/\/img\.ly\/)([0-9a-zA-Z]+)/);
+                if (m) {
+                    newitem.type = "photo";
+                    newitem.img = m[1] + "show/thumb/" + m[2];
+                }
+
+
+                // http://yfrog.com/15vfizj ->  http://yfrog.com/15vfizj:iphone
+                m = text.match(/(http:\/\/yfrog\.com\/[0-9a-zA-Z]+)/);
+                if (m) {
+                    newitem.type = "photo";
+                    newitem.img = m[1] + ":iphone";
+                }
+
+                // http://twitgoo.com/3ergg -> http://twitgoo.com/3ergg/img
+                m = text.match(/(http:\/\/twitgoo\.com\/[0-9a-zA-Z]+)/);
+                if (m) {
+                    newitem.type = "photo";
+                    newitem.img = m[1] + "/img";
+                }
+
+
 
                 text = text.replace(/(http:[\S]+)/g, "<a href='$1'>$1</a>");
                 text = text.replace(/@([\w]+)/g, "@<span class='vcard'><a href='http:\/\/twitter.com/$1' class='fn' rel='contact'>$1<\/a></span>");

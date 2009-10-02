@@ -31,7 +31,7 @@
             } 
         });
         $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
-                // Hmm ..
+                // Hmm .. had to inline this ..
                 //$.fn.polaroiderizer.feed.moderated(query);
                 var uri = 'http://bytenight.osmosoft.com/moderated/?callback=?';
                 $.getJSON(uri, function (data) {
