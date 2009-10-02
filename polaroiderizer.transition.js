@@ -12,24 +12,32 @@
 
 (function ($) {
 
-    // choose a transition effect
+    // exectute current transition effect
     $.fn.transition = function () {
-        //this.polaroidScroll();
-        //this.faders();	
-        this.plain();	
-        return this;
+        switch ($.fn.polaroiderizer.transition) {
+        case 0: 
+            return this.polaroidScroll();
+        case 1: 
+            return this.faders();	
+        default:
+            return this.plain();	
+        }
+    };
+
+    $.fn.polaroiderizer.shuffle = function () {
+        $.fn.polaroiderizer.transition = Math.floor(Math.random() * 3);
     };
 
     $.fn.addFrame = function (type) {
         $('#display div.plain').remove();
-        var frame = $('<div class="' +  type+ '"></div>').append(this);
+        var frame = $('<div class="' +  type + '"></div>').append(this);
         $('#display').append(frame);
         var photo = $(this).find('img');
         if (photo.height() > 400) {
             photo.css({height: photo.height() * 0.75, width: photo.width() * 0.75});
         }
         return $(frame).find('div');
-    }
+    };
 
     $.fn.polaroidScroll = function () {
         var frame = this.addFrame('polaroid');

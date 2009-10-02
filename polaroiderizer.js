@@ -47,6 +47,10 @@
                 $('#staging .ready').removeClass('shown');
             }
         });
+        $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
+                $.fn.polaroiderizer.shuffle();
+            } 
+        });
     }
 
     function runTasks() {
