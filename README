@@ -6,14 +6,13 @@ Forked by psd for http://bytenight.osmosoft.com
 -- some generic changes which may be useful for the core:
 
 TBD:
-flickr photographer name 
 # time ordered insertion
 # twitpic
 # yfrog
 # ..
 # block feed
 # slowly cycle through random transitions
-# test with large numbers of photos
+# page back through history ..
 
 Other sources of data:
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos

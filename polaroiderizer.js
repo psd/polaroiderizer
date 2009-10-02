@@ -22,7 +22,7 @@
 
     function runFeeds() {
         var query = $('#query').val();
-        $.whileAsync({ delay: 3000000, bulk: 0, loop: function () {
+        $.whileAsync({ delay: 30000, bulk: 0, loop: function () {
                 $.fn.polaroiderizer.feed.flickr(query); 
             } 
         });

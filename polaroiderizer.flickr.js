@@ -15,10 +15,10 @@
 
 (function ($) {
 
-    var flickrUser = {};
+    flickrUser = {};
     
     $.fn.polaroiderizer.feed.flickr = function (text) {
-        var nphotos = 5;
+        var nphotos = 50;
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
 
         var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +
@@ -52,8 +52,8 @@
                         '&format=json' +
                         '&jsoncallback=?';
                     $.getJSON(uri, function (item) {
-                        console.log(newitem, item);
-                        newitem.user = flickrUser[item.nsid] = item.person.username._content;
+                        newitem.user = item.person.username._content;
+                        flickrUser[item.person.nsid] = newitem.user;
                         $.fn.polaroiderizer.addItem(newitem);
                     });
                 }

@@ -17,7 +17,7 @@
 
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
-        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&callback=?';
+        var uri = 'http://search.twitter.com/search.json?q=' + escape(text) + '&rpp=100&callback=?';
 
         $.getJSON(uri, function (data) {
             $.each(data.results, function (i, item) {
