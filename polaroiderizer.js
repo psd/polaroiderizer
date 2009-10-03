@@ -31,7 +31,7 @@
             } 
         });
         $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
-                // Hmm .. had to inline this ..
+                // Hmm .. had to inline this code:
                 //$.fn.polaroiderizer.feed.moderated(query);
                 var uri = 'http://bytenight.osmosoft.com/moderated/?callback=?';
                 $.getJSON(uri, function (data) {
@@ -154,7 +154,10 @@
         var parsed_date = Date.parse(time_value);
         var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
         var delta = parseInt((relative_to.getTime() - parsed_date) / 1000, 10);
-    delta = delta - 60*60; // BST hack!
+
+        // last minute dirty hack for BST localtime
+        delta = delta - (60 * 60);
+
         if (delta < 60) {
             return 'less than a minute ago';
         } else if (delta < 120) {

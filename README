@@ -1,23 +1,39 @@
 Polaroiderizer is a little demo of using unobtrusive Javascript to make a simple slideshow.
 It uses jQuery to animated images grabbed from flickr.
 
-Forked and hacked for http://bytenight.osmosoft.com to pull down tweets, and photos from twitpic, yfrog, etc.
+    http://polaroderizer.com
+
+This version was forked:
+
+    http://github.com/philhawksworth/polaroiderizer
+    http://github.com/psd/polaroiderizer
+
+and hacked for Byte Night 2009:
+
+    http://bytenight.org.uk
+
+Where it was used for a live display of flickr photos, twiter tweets, and photos from twitpic, yfrog, etc:
+
+    http://bytenight.osmosoft.com 
 
 KNOWN BUGS:
-# had to put moderated code inline -- too many script includes?
 # noticed strange jumping layout as photos fade in in IE6
 # "ready" detection for images from yfrog, etc seems to be broken 
+# had to put moderated code inline -- too many script includes?
+# localtime handled in a buggy way for the night
 
 TBD:
+# correctly order tweets and photos by time, rather than insertion order
 # investigate using http://www.appelsiini.net/projects/lazyload
 # check bytenight hacks work in generic index.html form
-# correctly order tweets and photos by time, rather than insertion order
-# make transitions more extensible and less hard-coded
+# add "random" to transition "options"
+# make transitions more extensible and less hard-coded 
 # some more interesting transitions
 # fine tuning of display to jump to fresh content as it comes in, and reveal older stuff to stop people getting bored
 # UI for handling the moderated feed
 # make moderated feed location configrable
+# keyboard shortcuts to pause, play, reverse back to previous photo
 
-Add other sources of data:
+Other sources of data:
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos
 http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos

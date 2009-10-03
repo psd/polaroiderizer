@@ -39,6 +39,16 @@
         return $(frame).find('div');
     };
 
+    // transition: simplest possible
+    $.fn.plain = function () {
+        var frame = this.addFrame('plain');
+        var x = ($('#display').width() - $(frame).width()) / 2;
+        var y = ($('#display').height() - $(frame).height()) / 2;
+        frame.css({top: y + 'px', left: x + 'px'});
+        return this;				
+    };
+
+    // transition: drop down polaroid photos 
     $.fn.polaroidScroll = function () {
         var frame = this.addFrame('polaroid');
         var photo = $(this).find('img');
@@ -62,27 +72,19 @@
         return this;				
     };
 
-    // fading animation effect
+    // transition: fading animation effect
     $.fn.faders = function () {
         var frame = this.addFrame('faders');
         var x = ($('#display').width() - frame.width()) / 2;
         var y = ($('#display').height() - frame.height()) / 2;
         frame.css({top: y + 'px', left: x + 'px', opacity: '0'});
         frame.animate({opacity: '1'}, 2000, function (pic) {
-            frame.animate({opacity: '0'}, 3000, function () {
+            frame.animate({opacity: '0'}, 4000, function () {
                 frame.remove();
             });				
         });
         return this;				
     };
 
-    // simplest.effect
-    $.fn.plain = function () {
-        var frame = this.addFrame('plain');
-        var x = ($('#display').width() - $(frame).width()) / 2;
-        var y = ($('#display').height() - $(frame).height()) / 2;
-        frame.css({top: y + 'px', left: x + 'px'});
-        return this;				
-    };
 
 }(jQuery));

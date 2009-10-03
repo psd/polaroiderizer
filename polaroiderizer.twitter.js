@@ -18,12 +18,11 @@
 
     $.fn.polaroiderizer.feed.twitter = function (text) {
 
-        // text = "img.ly OR twitgoo OR twitpic OR yfrog";
-
         var page = 1;
         var rpp = 100;
 
-        // eventually mop up old tweets .. hacky ..
+        // eventually mop up old tweets .. 
+        // this is a really awful last minute hack ..
         switch (Math.floor(Math.random() * 20)) {
         case 1:
             page = 2;
@@ -84,6 +83,7 @@
                     newitem.img = m[1] + "/img";
                 }
 
+                // annotate tweet text with links
                 text = text.replace(/(http:[\S]+)/g, "<a href='$1'>$1</a>");
                 text = text.replace(/@([\w]+)/g, "@<span class='vcard'><a href='http:\/\/twitter.com/$1' class='fn' rel='contact'>$1<\/a></span>");
                 text = text.replace(/#([^<\s][\S]+)/g, "#<a href='http:\/\/search.twitter.com\/q=$1' rel='tag'>$1<\/a>");

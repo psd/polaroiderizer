@@ -35,6 +35,7 @@
                     $.fn.polaroiderizer.addItem(flickrPhoto[item.id]);
                     return;
                 } 
+
                 var newitem = {
                     type: 'photo', 
                     id: 'flickr_' + item.id,
@@ -45,11 +46,13 @@
                     img: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg',
                     href: 'http://flickr.com/photos/' + item.owner + '/' + item.id
                 };
+
                 var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.getInfo' +
                     '&api_key=' + api_key +
                     '&photo_id=' + escape(item.id) +
                     '&format=json' +
                     '&jsoncallback=?';
+
                 $.getJSON(uri, function (item) {
                     newitem.user = item.photo.owner.username;
                     newitem.created = item.photo.dates.taken;

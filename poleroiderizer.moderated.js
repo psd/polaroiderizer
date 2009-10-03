@@ -16,6 +16,8 @@
 (function ($) {
 
     $.fn.polaroiderizer.feed.moderated = function (text) {
+        // hard-coded feed of photos to block/unblock
+        // -- see moderated.php
         var uri = 'http://bytenight.osmosoft.com/moderated/?callback=?';
         $.getJSON(uri, function (data) {
             $.each(data.results, function (i, item) {
