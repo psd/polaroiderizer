@@ -20,12 +20,13 @@ KNOWN BUGS:
 # noticed strange jumping layout as photos fade in in IE6
 # "ready" detection for images from yfrog, etc seems to be broken 
 # localtime handled in a buggy way for the night
+# UI handling for transition options broken -- always cycles
 
 TBD:
 # correctly order tweets and photos by time, rather than insertion order
 # investigate using http://www.appelsiini.net/projects/lazyload
 # check bytenight hacks work in generic index.html form
-# add "random" to transition "options"
+# add "cycle" to transition options
 # make transitions more extensible and less hard-coded 
 # some more interesting transitions
 # fine tuning of display to jump to fresh content as it comes in, and reveal older stuff to stop people getting bored
