@@ -19,7 +19,6 @@ Where it was used for a live display of flickr photos, twiter tweets, and photos
 KNOWN BUGS:
 # noticed strange jumping layout as photos fade in in IE6
 # "ready" detection for images from yfrog, etc seems to be broken 
-# had to put moderated code inline -- too many script includes?
 # localtime handled in a buggy way for the night
 
 TBD:
