@@ -1,18 +1,23 @@
 Polaroiderizer is a little demo of using unobtrusive Javascript to make a simple slideshow.
 It uses jQuery to animated images grabbed from flickr.
 
-Forked by psd for http://bytenight.osmosoft.com
+Forked and hacked for http://bytenight.osmosoft.com to pull down tweets, and photos from twitpic, yfrog, etc.
 
--- some generic changes which may be useful for the core:
+KNOWN BUGS:
+# had to put moderated code inline -- too many script includes?
+# noticed strange jumping layout as photos fade in in IE6
+# "ready" detection for images from yfrog, etc seems to be broken 
 
 TBD:
-# twitpic
-# yfrog
-# ..
+# investigate using http://www.appelsiini.net/projects/lazyload
+# check bytenight hacks work in generic index.html form
+# correctly order tweets and photos by time, rather than insertion order
+# make transitions more extensible and less hard-coded
+# some more interesting transitions
+# fine tuning of display to jump to fresh content as it comes in, and reveal older stuff to stop people getting bored
+# UI for handling the moderated feed
+# make moderated feed location configrable
 
-# time ordered insertion to better mixup tweets and photos ..
-# more transitions
-
-Other sources of data:
+Add other sources of data:
 http://gdata.youtube.com/feeds/videos?max-results=50&start-index=1&vq=bytenight%20OR%20%22byte%20night%22&alt=json-in-script&callback=callbackVideos
 http://picasaweb.google.com/data/feed/base/all?alt=json&kind=photo&access=public&filter=1&q=%22bytenight%22&hl=en_US&callback=callbackPhotos

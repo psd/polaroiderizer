@@ -84,8 +84,6 @@
                     newitem.img = m[1] + "/img";
                 }
 
-
-
                 text = text.replace(/(http:[\S]+)/g, "<a href='$1'>$1</a>");
                 text = text.replace(/@([\w]+)/g, "@<span class='vcard'><a href='http:\/\/twitter.com/$1' class='fn' rel='contact'>$1<\/a></span>");
                 text = text.replace(/#([^<\s][\S]+)/g, "#<a href='http:\/\/search.twitter.com\/q=$1' rel='tag'>$1<\/a>");
