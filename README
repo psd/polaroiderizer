@@ -25,6 +25,8 @@ KNOWN BUGS:
 
 TBD:
 # correctly order tweets and photos by time, rather than insertion order
+# fine tuning of display to jump to fresh content as it comes in, and reveal older stuff to stop people getting bored
+   -- should come out in the wash with time order insertion ..
 # add "cycle" to transition option
 # allow turn-on-an-offability for the feeds
 # investigate using http://www.appelsiini.net/projects/lazyload
@@ -32,7 +34,6 @@ TBD:
 # make transitions more extensible and less hard-coded 
 # make feeds more extensible and less hard-coded 
 # some more interesting transitions
-# fine tuning of display to jump to fresh content as it comes in, and reveal older stuff to stop people getting bored
 # UI for handling the moderated feed
 # make moderated feed location configrable
 # keyboard shortcuts to pause, play, reverse back to previous photo
