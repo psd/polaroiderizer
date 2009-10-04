@@ -13,6 +13,57 @@
 /*jslint browser: true, onevar: false */
 /*global window, escape, jQuery */
 
+
+/*
+ *  date functions
+ */
+String.zeroPad = function (n, d)
+{
+    var s = n.toString();
+    if (s.length < d) {
+        s = "000000000000000000000000000".substr(0, d - s.length) + s;
+    }
+    return s;
+};
+
+
+Date.prototype.convertToYYYYMMDDHHMMSSMMM = function ()
+{
+    return this.getUTCFullYear() + String.zeroPad(this.getUTCMonth() + 1, 2) + String.zeroPad(this.getUTCDate(), 2) + "." + String.zeroPad(this.getUTCHours(), 2) + String.zeroPad(this.getUTCMinutes(), 2) + String.zeroPad(this.getUTCSeconds(), 2) + String.zeroPad(this.getUTCMilliseconds(), 4);
+};
+
+
+/*
+ *  twitter relative time 
+ */
+function relative_time(time_value) {
+    var parsed_date = Date.parse(time_value);
+    var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
+    var delta = parseInt((relative_to.getTime() - parsed_date) / 1000, 10);
+
+    // last minute dirty hack for BST localtime
+    delta = delta - (60 * 60);
+
+    if (delta < 60) {
+        return 'less than a minute ago';
+    } else if (delta < 120) {
+        return 'about a minute ago';
+    } else if (delta < (45 * 60)) {
+        return (parseInt(delta / 60, 10)).toString() + ' minutes ago';
+    } else if (delta < (90 * 60)) {
+        return 'about an hour ago';
+    } else if (delta < (24 * 60 * 60)) {
+        return 'about ' + (parseInt(delta / 3600, 10)).toString() + ' hours ago';
+    } else if (delta < (48 * 60 * 60)) {
+        return '1 day ago';
+    } else if (delta < (365 * 24 * 60 * 60)) {
+        return (parseInt(delta / 86400, 10)).toString() + ' days ago';
+    } else {
+        return 'over a year ago';
+    }
+}
+
+
 (function ($) {
 
     /*
@@ -140,43 +191,15 @@
     };
 
     /*
-     *  twitter relative time 
-     */
-    function relative_time(time_value) {
-        var parsed_date = Date.parse(time_value);
-        var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
-        var delta = parseInt((relative_to.getTime() - parsed_date) / 1000, 10);
-
-        // last minute dirty hack for BST localtime
-        delta = delta - (60 * 60);
-
-        if (delta < 60) {
-            return 'less than a minute ago';
-        } else if (delta < 120) {
-            return 'about a minute ago';
-        } else if (delta < (45 * 60)) {
-            return (parseInt(delta / 60, 10)).toString() + ' minutes ago';
-        } else if (delta < (90 * 60)) {
-            return 'about an hour ago';
-        } else if (delta < (24 * 60 * 60)) {
-            return 'about ' + (parseInt(delta / 3600, 10)).toString() + ' hours ago';
-        } else if (delta < (48 * 60 * 60)) {
-            return '1 day ago';
-        } else if (delta < (365 * 24 * 60 * 60)) {
-            return (parseInt(delta / 86400, 10)).toString() + ' days ago';
-        } else {
-            return 'over a year ago';
-        }
-    }
-
-    /*
      *  add item to staging area, which is also the display queue
      */
     $.fn.polaroiderizer.addItem = function (item) {
         if ($("#" + item.id).length > 0) {
             return;
         }
+
         var polaroid = $('<div class="' + item.type + '" id="' + item.id + '"/>');
+
         $('<a href="' + item.href + '"></a>').append(
             $('<img src="' + item.img + '" title="' + item.user + ' ' + item.size + '">')
             .load(function () {
@@ -190,13 +213,20 @@
         if (item.title) {
             $('<p class="title">' + item.title + ' by <a class="author" href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
         } 
+
         if (item.text) {
             $('<p class="text"><a class="author" href="' + item.profile + '">' + item.user + '</a> ' + item.text + '</p>').appendTo(polaroid);
         }
+
         if (item.created) {
             $('<p class="time"><a href="' + item.href + '">' + relative_time(item.created) + '</a></p>').appendTo(polaroid);
+            var created = Date.parse(item.created).convertToYYYYMMDDHHMMSSMMM();
+            $(polaroid).attr({created: created});
         }
 
+        /*
+         *  TBD: insert into staging in time order ..
+         */
         polaroid.appendTo('#staging');
     };
 
