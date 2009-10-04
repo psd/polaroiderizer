@@ -39,10 +39,10 @@
                 var newitem = {
                     type: 'photo', 
                     id: 'flickr_' + item.id,
-                    title: item.title, 
                     user: item.owner,
                     profile: "http://flickr.com/people/" + escape(item.owner),
-                    text: item.description,
+                    title: item.title, 
+                    //text: item.description,
                     img: 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg',
                     href: 'http://flickr.com/photos/' + item.owner + '/' + item.id
                 };

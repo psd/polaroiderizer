@@ -139,6 +139,9 @@
         }
     };
 
+    /*
+     *  twitter relative time 
+     */
     function relative_time(time_value) {
         var parsed_date = Date.parse(time_value);
         var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
@@ -186,10 +189,10 @@
     
         if (item.title) {
             $('<p class="title">' + item.title + ' by <a class="author" href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
-        } else if (item.text) {
+        } 
+        if (item.text) {
             $('<p class="text"><a class="author" href="' + item.profile + '">' + item.user + '</a> ' + item.text + '</p>').appendTo(polaroid);
         }
-
         if (item.created) {
             $('<p class="time"><a href="' + item.href + '">' + relative_time(item.created) + '</a></p>').appendTo(polaroid);
         }

@@ -20,6 +20,7 @@ KNOWN BUGS:
 # noticed strange jumping layout as photos fade in in IE6
 # "ready" detection for images from yfrog, etc seems to be broken 
 # localtime handled in a buggy way for the night
+# relative time needs refreshing when a slide is displayed
 # UI handling for transition options broken -- always cycles
 
 TBD:
