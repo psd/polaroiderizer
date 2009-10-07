@@ -191,6 +191,29 @@ function relative_time(time_value) {
     };
 
     /*
+     *  insert element into a list
+     *  brute force :- should really use a binary chop
+     */
+    function orderedInsert(list, item, cmp) { 
+        var items = list.children();
+        if (!items.length) {
+            return item.appendTo(list);
+        } 
+        items.each(function (place) {
+            var placenode = $(items[place]);
+            if (place === (items.length - 1)) {
+                item.insertAfter(placenode);
+                return false;
+            }
+            if (cmp(item, placenode)) {
+                item.insertBefore(placenode);
+                return false;
+            }
+        });
+        return item;
+    }
+
+    /*
      *  add item to staging area, which is also the display queue
      */
     $.fn.polaroiderizer.addItem = function (item) {
@@ -225,9 +248,11 @@ function relative_time(time_value) {
         }
 
         /*
-         *  TBD: insert into staging in time order ..
+         *  add to list
          */
-        polaroid.appendTo('#staging');
+        return orderedInsert($('#staging'), polaroid, function (item, place) { 
+                return place.attr('created') < item.attr('created') ? true : false;
+            });
     };
 
     /*
