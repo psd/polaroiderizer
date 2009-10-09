@@ -63,6 +63,14 @@ function relative_time(time_value) {
     }
 }
 
+/*
+ *  actual time
+ */
+function actual_time(time_value) {
+    var d = Date.parse(time_value);
+    return d.toLocaleString();
+}
+
 
 (function ($) {
 
@@ -227,6 +235,7 @@ function relative_time(time_value) {
             $('<img src="' + item.img + '" title="' + item.user + ' ' + item.size + '">')
             .load(function () {
                 var that = this;
+                // TBD: fix lazy loading ..
                 window.setTimeout(function () {
                     $(that).closest('div').addClass("ready");
                 }, 1000);
@@ -242,7 +251,8 @@ function relative_time(time_value) {
         }
 
         if (item.created) {
-            $('<p class="time"><a href="' + item.href + '">' + relative_time(item.created) + '</a></p>').appendTo(polaroid);
+            /* $('<p class="time"><a href="' + item.href + '">' + relative_time(item.created) + '</a></p>').appendTo(polaroid); */
+            $('<p class="time"><a href="' + item.href + '">' + actual_time(item.created) + '</a></p>').appendTo(polaroid);
             var created = Date.parse(item.created).convertToYYYYMMDDHHMMSSMMM();
             $(polaroid).attr({created: created});
         }
