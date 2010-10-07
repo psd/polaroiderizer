@@ -14,4 +14,3 @@ sts $space polaroiderizer.transition.js
 sts $space polaroiderizer.twitter.js
 sts $space plugins/date.js
 sts $space plugins/jquery.async.js
-sts $space plugins/ordered.js
