@@ -34,7 +34,7 @@ Date.prototype.convertToYYYYMMDDHHMMSSMMM = function ()
 
 
 /*
- *  twitter relative time 
+ *  twitter relative time
  */
 function relative_time(time_value) {
     var parsed_date = Date.parse(time_value);
@@ -82,16 +82,16 @@ function actual_time(time_value) {
     function runFeeds() {
         var query = $('#query').val();
         $.whileAsync({ delay: 600000, bulk: 0, loop: function () {
-                $.fn.polaroiderizer.feed.flickr(query); 
-            } 
+                $.fn.polaroiderizer.feed.flickr(query);
+            }
         });
-        $.whileAsync({ delay: 600000, bulk: 0, loop: function () { 
+        $.whileAsync({ delay: 600000, bulk: 0, loop: function () {
                 $.fn.polaroiderizer.feed.twitter(query);
-            } 
+            }
         });
-        $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
+        $.whileAsync({ delay: 30000, bulk: 0, loop: function () {
                 $.fn.polaroiderizer.feed.moderated(query);
-            } 
+            }
         });
     }
 
@@ -110,9 +110,9 @@ function actual_time(time_value) {
                 $('#staging .ready').removeClass('shown');
             }
         });
-        $.whileAsync({ delay: 30000, bulk: 0, loop: function () { 
+        $.whileAsync({ delay: 30000, bulk: 0, loop: function () {
                 $.fn.polaroiderizer.shuffle();
-            } 
+            }
         });
     }
 
@@ -161,7 +161,7 @@ function actual_time(time_value) {
         $('a.toggleFullscreen').click(function () {
             $.fn.polaroiderizer.toggleFullscreen();
         });
-        
+
         $().keypress(function (e) {
             if (!$(e.target).is('#query')) {
                 if (e.which === 102) {
@@ -202,11 +202,11 @@ function actual_time(time_value) {
      *  insert element into a list
      *  brute force :- should really use a binary chop
      */
-    function orderedInsert(list, item, cmp) { 
+    function orderedInsert(list, item, cmp) {
         var items = list.children();
         if (!items.length) {
             return item.appendTo(list);
-        } 
+        }
         items.each(function (place) {
             var placenode = $(items[place]);
             if (place === (items.length - 1)) {
@@ -241,10 +241,10 @@ function actual_time(time_value) {
                 }, 1000);
             })
         ).appendTo(polaroid);
-    
+
         if (item.title) {
             $('<p class="title">' + item.title + ' by <a class="author" href="' + item.profile + '">' + item.user + '</a></p>').appendTo(polaroid);
-        } 
+        }
 
         if (item.text) {
             $('<p class="text"><a class="author" href="' + item.profile + '">' + item.user + '</a> ' + item.text + '</p>').appendTo(polaroid);
@@ -260,7 +260,7 @@ function actual_time(time_value) {
         /*
          *  add to list
          */
-        return orderedInsert($('#staging'), polaroid, function (item, place) { 
+        return orderedInsert($('#staging'), polaroid, function (item, place) {
                 return place.attr('created') < item.attr('created') ? true : false;
             });
     };
