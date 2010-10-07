@@ -63,7 +63,7 @@
 
         // animate photo opacity and into view.
         frame.animate({top: '15px'}, 400);
-        photo.animate({opacity: '1'}, 2000, function (picture) {
+        photo.animate({opacity: '1'}, 6000, function (picture) {
             // animate slowly out of view and opacity of entire object.
             frame.animate({top: $('#display').height() + 'px', opacity: '0'}, 5000, function () {
                 frame.remove();
@@ -79,7 +79,7 @@
         var y = ($('#display').height() - frame.height()) / 2;
         frame.css({top: y + 'px', left: x + 'px', opacity: '0'});
         frame.animate({opacity: '1'}, 2000, function (pic) {
-            frame.animate({opacity: '0'}, 4000, function () {
+            frame.animate({opacity: '0'}, 6000, function () {
                 frame.remove();
             });				
         });
