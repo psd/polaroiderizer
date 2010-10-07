@@ -16,6 +16,14 @@ Where it was used for a live display of flickr photos, twiter tweets, and photos
 
     http://bytenight.osmosoft.com 
 
+For 2010 we've put it up on TiddlySpace:
+
+	http://bytenight.tiddlyspace.com
+
+which uses the spaces:
+
+	http://polaroiderizer.tiddlyspace.com
+
 KNOWN BUGS:
 # noticed strange jumping layout as photos fade in in IE6
 # "ready" detection for images from yfrog, etc seems to be broken 

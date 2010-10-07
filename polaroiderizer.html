@@ -18,7 +18,8 @@
 <body>
 	<h1 id='title'>Byte Night Display Board</h1>
 	<form action='http://flickr.com/photos/search' method='get' id="form">
-		<input type="text" name="text" value='(bytenight OR "byte night") -bytenight2007 -bytenight07' id="query">
+		<input type="text" name="text" value='' id="query">
+		since
 		<input type="submit" name="submit" value="Go!" id="submit">
 	</form>
 	<div id='display'>
@@ -26,9 +27,6 @@
 	</div>
 	<div id='controls'>
 		<ul id='options'>
-			<li><a href='#' class='selected'>polaroids</a></li>
-			<li><a href='#'>faders</a></li>
-			<li><a href='#'>plain</a></li>
 		</ul>
 		<span class="toggle"><a href='#' title='toggle fullscreen' class='toggleFullscreen'>f</a> to toggle fullscreen mode</span>
 	</div>
@@ -42,11 +40,6 @@
 	<script src="polaroiderizer.twitter.js" type="text/javascript" charset="utf-8"></script>
 	<script src="polaroiderizer.transition.js" type="text/javascript" charset="utf-8"></script>
 	<script src="polaroiderizer.moderated.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#display').polaroiderizer({query: 'bytenight OR "byte night" -NPowerAZ'});
-            $('#display').polaroiderizer.toggleFullscreen();
-		});
-	</script>
+	<script src="polaroiderizer.startup.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

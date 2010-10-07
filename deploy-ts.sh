@@ -4,6 +4,8 @@
 #
 space=polaroiderizer
 
+sts bytenight polaroiderizer.startup.js
+
 sts $space polaroiderizer.html
 sts $space styles.css
 
@@ -12,5 +14,7 @@ sts $space polaroiderizer.js
 sts $space polaroiderizer.moderated.js
 sts $space polaroiderizer.transition.js
 sts $space polaroiderizer.twitter.js
-sts $space plugins/date.js
-sts $space plugins/jquery.async.js
+sts $space date.js
+sts $space jquery.async.js
+
+sts $space polaroiderizer.startup.js

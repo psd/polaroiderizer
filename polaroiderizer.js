@@ -89,10 +89,6 @@ function actual_time(time_value) {
                 $.fn.polaroiderizer.feed.twitter(query);
             }
         });
-        $.whileAsync({ delay: 30000, bulk: 0, loop: function () {
-                $.fn.polaroiderizer.feed.moderated(query);
-            }
-        });
     }
 
     function show(item) {

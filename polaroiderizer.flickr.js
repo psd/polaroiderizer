@@ -16,14 +16,16 @@
 (function ($) {
 
     var flickrPhoto = {};
-    
+
     $.fn.polaroiderizer.feed.flickr = function (text) {
         var nphotos = 500; // max 500 in one page ..
         var api_key = '0a346a54dbca829015b11fcac9e70c6f';
+		var min_upload_date = '&min_upload_date=' + '2010-05-01';
 
         var uri = 'http://api.flickr.com/services/rest/?method=flickr.photos.search' +
             '&api_key=' + api_key +
             '&text=' + escape(text) +
+			min_upload_date +
             '&per_page=' + nphotos +
             '&format=json' +
             '&jsoncallback=?';
