@@ -252,6 +252,7 @@ div#display.kiosk {
     border: none;
     margin: 30px 10px 0px 20px;
     padding-bottom: 40px;
+	width: 48px;
 }
 
 #display .tweet p {
